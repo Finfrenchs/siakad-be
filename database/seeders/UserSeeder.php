@@ -23,5 +23,21 @@ class UserSeeder extends Seeder
             'password' => Hash::make('123456'),
             'roles' => 'admin',
         ]);
+
+        User::create([
+            'name' => 'M Kelvin MF',
+            'email' => 'kelvin.mhs@lwk.com',
+            'email_verified_at' => now(),
+            'password' => Hash::make('123456'),
+            'roles' => 'mahasiswa',
+        ]);
+
+        User::create([
+            'name' => 'M Kelvin Madrianto Fahendra',
+            'email' => 'kelvin.dos@lwk.com',
+            'email_verified_at' => now(),
+            'password' => Hash::make('123456'),
+            'roles' => 'dosen',
+        ]);
     }
 }

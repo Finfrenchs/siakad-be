@@ -18,7 +18,7 @@ class AuthController extends Controller
             'password' => 'required'
         ]);
 
-        //pass input email and password
+        //pass input user and password
         $user = User::where('email', $request->email)->first();
 
         //if not allow
@@ -28,20 +28,21 @@ class AuthController extends Controller
             ]);
         }
 
-        //check password match
-        if (Hash::check($request->password, $user->password)) {
+        if (!Hash::check($request->password, $user->password)) {
             throw ValidationException::withMessages([
-                'password' => ['email incorrect']
+                'password' => ['password incorrect']
             ]);
         }
 
         //if success
         $token = $user->createToken('api-token')->plainTextToken;
 
-        return response()->json([
-            'jwt-token' => $token,
-            'user' => new UserResource($user),
-        ]);
+        return response()->json(
+            [
+                'jwt-token' => $token,
+                'user' => new UserResource($user),
+            ]
+        );
     }
 
     public function logout(Request $request)
