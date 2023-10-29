@@ -23,7 +23,7 @@ class AbsensiMatkulFactory extends Factory
             'student_id' => User::factory(),
             'kode_absensi' => $this->faker->randomElement(['A1', 'A2', 'A3', 'A4', 'A5', 'A6']),
             'tahun_akademik' => $this->faker->randomElement(['2021/2022', '2022/2023', '2023/2024']),
-            'semester' => $this->faker->randomElement(['Ganil', 'Genap']),
+            'semester' => $this->faker->randomElement(['Ganjil', 'Genap']),
             'pertemuan' => $this->faker->randomElement(['1', '2', '3', '4', '5', '6']),
             'status' => $this->faker->randomElement(['Hadir', 'Tidak Hadir']),
             'keterangan' => $this->faker->randomElement(['Sakit', 'Ijin', 'Tanpa Keterangan']),

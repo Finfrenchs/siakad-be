@@ -21,7 +21,8 @@ class KhsController extends Controller
         //$allKhs = Khs::paginate(10);
 
         //get khs by userid paginate 10 data
-        $khs = Khs::where('student_id', '=', $user->id )->get()->load('subject');
+        $khs = Khs::where('student_id', '=', $user->id )->orderBy('id', 'desc')->paginate(10);
+        //$khs = Khs::where('student_id', '=', $user->id )->get()->load('subject');
 
         //return for api
         return KhsResource::collection($khs);

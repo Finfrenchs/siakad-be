@@ -17,7 +17,10 @@ class AbsensiMatkulController extends Controller
         $user = $request->user();
 
         //get absensi by userid paginate 10 data
-        $absensiMatkul = AbsensiMatkul::where('student_id', '=', $user->id )->paginate(10);
+        //sort by id desc
+        $absensiMatkul = AbsensiMatkul::where('student_id', '=', $user->id )
+        ->orderBy('id', 'desc')
+        ->paginate(10);
 
         //return for api
         return $absensiMatkul;
@@ -30,13 +33,22 @@ class AbsensiMatkulController extends Controller
     {
         //save data absensi to table absensi_matkul
         $request->validate([
-            'schedule_id' => 'required|exists:schedules,id',
-            'kode_absesnsi' => 'required',
+            'schedule_id' => 'required',
+            'kode_absensi' => 'required',
             'tahun_akademik' => 'required',
             'semester' => 'required',
             'pertemuan' => 'required',
             'latitude' => 'required',
             'longitude' => 'required',
+        ]);
+
+        //save user id
+        $user = $request->user();
+        $request->merge([
+            'student_id' => $user->id,
+            'created_by' => $user->id,
+            'updated_by' => $user->id,
+
         ]);
 
         $absensiMatkul = AbsensiMatkul::create($request->all());
@@ -57,7 +69,14 @@ class AbsensiMatkulController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        //update nilai by id
+        $absensiMatkul = AbsensiMatkul::findOrFail($id);
+        //update by user id
+        $user = $request->user();
+        $request->merge(['updated_by' => $user->id,]);
+
+        $absensiMatkul->update($request->all());
+        return $absensiMatkul;
     }
 
     /**
