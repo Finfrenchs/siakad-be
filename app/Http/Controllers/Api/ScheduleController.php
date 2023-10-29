@@ -19,7 +19,7 @@ class ScheduleController extends Controller
         // return ScheduleResource::collection($schedules->load('subject'));
 
         $schedules = Schedule::where('student_id', '=', $user->id)->get();
-        return ScheduleResource::collection($schedules->load('subject', 'student'));
+        return ScheduleResource::collection($schedules->load('subject', 'subject.lecturer', 'student'));
     }
 
     /**
